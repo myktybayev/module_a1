@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">module_a1</string>
+
+    <string name="title_home">Каталог</string>
+    <string name="title_dashboard">Корзина</string>
+    <string name="title_notifications">Профиль</string>
+</resources>
