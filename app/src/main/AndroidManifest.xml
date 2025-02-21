@@ -22,11 +22,11 @@
             android:name=".ui.authen.RegistrationActivity"
             android:exported="false"
             android:parentActivityName=".ui.authen.LoginActivity" />
+<!--        <activity-->
+<!--            android:name=".MainActivity"-->
+<!--            android:exported="false" />-->
         <activity
             android:name=".MainActivity"
-            android:exported="false" />
-        <activity
-            android:name=".ui.authen.LoginActivity"
             android:exported="true"
             android:label="@string/app_name">
             <intent-filter>

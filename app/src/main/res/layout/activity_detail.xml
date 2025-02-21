@@ -58,11 +58,11 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/buttonRegistration"
+        android:id="@+id/btnSubmit"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="400dp"
+        android:layout_marginTop="250dp"
         android:layout_marginRight="10dp"
         android:background="@drawable/style_border"
         android:text="Добавить в корзину" />

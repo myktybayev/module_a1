@@ -15,17 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import kz.worldskills.a107.R;
-import kz.worldskills.a107.ui.test.CardAdapter;
-import kz.worldskills.a107.ui.test.CardItem;
 
 public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.ViewHolder> {
 
     private List<Item> itemList;
+    private List<Item> filteredList;
     Context context;
 
     public CatalogAdapter(Context context, List<Item> itemList) {
         this.context = context;
         this.itemList = itemList;
+        this.filteredList = new ArrayList<>(itemList);
     }
 
     @NonNull
@@ -37,7 +37,7 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.ViewHold
 
     @Override
     public void onBindViewHolder(@NonNull CatalogAdapter.ViewHolder holder, int position) {
-        Item item = itemList.get(position);
+        Item item = filteredList.get(position);
         holder.title.setText(item.title);
         holder.description.setText(item.desc);
         holder.imageView.setImageResource(item.suretId);
@@ -77,10 +77,23 @@ public class CatalogAdapter extends RecyclerView.Adapter<CatalogAdapter.ViewHold
         });
     }
 
-
     @Override
     public int getItemCount() {
-        return itemList.size();
+        return filteredList.size();
+    }
+
+    public void filter(String text) {
+        filteredList.clear();
+        if (text.isEmpty()) {
+            filteredList.addAll(itemList);
+        } else {
+            for (Item item : itemList) {
+                if (item.title.toLowerCase().contains(text.toLowerCase())) {
+                    filteredList.add(item);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
