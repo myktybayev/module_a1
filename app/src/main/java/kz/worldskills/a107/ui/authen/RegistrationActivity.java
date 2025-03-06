@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.ArrayList;
+
 import kz.worldskills.a107.MainActivity;
 import kz.worldskills.a107.R;
 
@@ -24,10 +26,7 @@ public class RegistrationActivity extends AppCompatActivity {
         editTextLogin = findViewById(R.id.editTextLogin);
         editTextEmail = findViewById(R.id.editTextEmail);
         editTextPassword = findViewById(R.id.editTextPassword);
-        /*
 
-
-         */
         btnCreate = findViewById(R.id.btnCreate);
         btnCreate.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -50,4 +49,6 @@ public class RegistrationActivity extends AppCompatActivity {
             }
         });
     }
+
+    static ArrayList<String> accounts = new ArrayList<>();
 }

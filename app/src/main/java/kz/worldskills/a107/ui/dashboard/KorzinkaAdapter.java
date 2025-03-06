@@ -42,54 +42,50 @@ public class KorzinkaAdapter extends RecyclerView.Adapter<KorzinkaAdapter.ViewHo
     public void onBindViewHolder(@NonNull KorzinkaAdapter.ViewHolder holder, int position) {
         Item item = itemList.get(position);
         holder.title.setText(item.title);
-        holder.bagaTv.setText(item.baga+" т");
+        holder.bagaTv.setText(item.baga + " т");
         holder.imageView.setImageResource(item.suretId);
-        holder.tv_shtuk.setText(""+item.count);
+        holder.tv_shtuk.setText("" + item.count);
 
         summa = summa + (item.baga * item.count);
 
-        if(item.count == 1){
+        if (item.count == 1) {
             holder.iv_minus.setImageDrawable(context.getResources().getDrawable(R.drawable.delete_icon));
-        }else{
+        } else {
             holder.iv_minus.setImageDrawable(context.getResources().getDrawable(R.drawable.minus_icon));
         }
 
         holder.iv_minus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                summa = summa -
 
-                if(item.count == 1){
+                if (item.count == 1) {
                     itemList.remove(position);
                     notifyDataSetChanged();
-                }else{
-                    holder.tv_shtuk.setText(""+(item.count-1));
-                    if(item.count-1 == 1){
+                } else {
+
+                    item.setCount(item.count - 1);
+                    holder.tv_shtuk.setText("" + item.count);
+                    if (item.count == 1) {
                         holder.iv_minus.setImageDrawable(context.getResources().getDrawable(R.drawable.delete_icon));
-                    }else{
+                    } else {
                         holder.iv_minus.setImageDrawable(context.getResources().getDrawable(R.drawable.minus_icon));
                     }
                 }
-
-                summa = summa - (item.baga * item.count);
-
-                changeSumma(summa);
+                changeSumma();
             }
         });
 
         holder.iv_plus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                plusCount++;
-                holder.tv_shtuk.setText(""+(item.count+plusCount));
+                item.setCount(item.count + 1);
+                holder.tv_shtuk.setText("" + item.count);
 
-                summa = summa + (item.baga * item.count);
-
-                if(item.count != 1){
+                if (item.count != 1) {
                     holder.iv_minus.setImageDrawable(context.getResources().getDrawable(R.drawable.minus_icon));
                 }
 
-                changeSumma(summa);
+                changeSumma();
             }
         });
     }

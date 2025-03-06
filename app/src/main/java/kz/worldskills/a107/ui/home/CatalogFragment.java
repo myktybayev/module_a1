@@ -1,6 +1,7 @@
 package kz.worldskills.a107.ui.home;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -26,6 +27,7 @@ import kz.worldskills.a107.MainActivity;
 import kz.worldskills.a107.R;
 import kz.worldskills.a107.ui.authen.LoadJSONAsset;
 import kz.worldskills.a107.ui.authen.LoginActivity;
+import android.content.Context;
 
 public class CatalogFragment extends Fragment {
 
@@ -53,9 +55,14 @@ public class CatalogFragment extends Fragment {
                     String desc = jsonObject.getString("desc");
                     int baga = jsonObject.getInt("price");
 
-                    itemList.add(new Item(R.drawable.ic_notifications_black_24dp, title, desc, baga, 0));
-
-
+//                    String drawableName = "airpods_pro2_1";
+                    JSONArray imageArray = jsonObject.getJSONArray("images");
+                    for (int j = 0; j < imageArray.length(); j++) {
+                        String imgName = imageArray.getString(j);
+                        imgName = imgName.substring(imgName.indexOf("/")+1,imgName.indexOf("."));
+                        itemList.add(new Item(getDrawableId(getActivity(), imgName), title, desc, baga, 0));
+                        break;
+                    }
                 }
 
 
@@ -65,15 +72,6 @@ public class CatalogFragment extends Fragment {
                 e.printStackTrace();
             }
         }
-
-//        itemList.add(new Item(R.drawable.ic_notifications_black_24dp, "Laptop", "Ноутбук описание", 200000, 0));
-//        itemList.add(new Item(R.drawable.ic_catalog, "MacBook", "Apple Macbook", 1800000, 0));
-//        itemList.add(new Item(R.drawable.ic_catalog, "Phone", "Телефон описание", 300000, 0));
-//        itemList.add(new Item(R.drawable.ic_account, "Car", "Машина описание", 240000, 0));
-//        itemList.add(new Item(R.drawable.ic_korzinka, "Car1", "Мышка описание", 250000, 0));
-//        itemList.add(new Item(R.drawable.ic_korzinka, "Мышка2", "Мышка описание", 150000, 0));
-//        itemList.add(new Item(R.drawable.ic_korzinka, "Мышка3", "Мышка описание", 100000, 0));
-//        itemList.add(new Item(R.drawable.ic_korzinka, "Мышка", "Мышка описание", 12000, 0));
 
         catalogAdapter = new CatalogAdapter(getActivity(), itemList);
         recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
@@ -96,6 +94,10 @@ public class CatalogFragment extends Fragment {
         });
 
         return view;
+    }
+
+    public static int getDrawableId(Context context, String drawableName) {
+        return context.getResources().getIdentifier(drawableName, "drawable", context.getPackageName());
     }
 
 }

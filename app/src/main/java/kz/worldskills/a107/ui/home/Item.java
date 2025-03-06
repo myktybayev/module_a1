@@ -15,4 +15,7 @@ public class Item {
         this.count = count;
     }
 
+    public void setCount(int count) {
+        this.count = count;
+    }
 }

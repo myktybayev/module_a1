@@ -1,5 +1,8 @@
 package kz.worldskills.a107.ui.home;
 
+import static kz.worldskills.a107.ui.dashboard.KorzinkaFragment.addToKorzinka;
+import static kz.worldskills.a107.ui.dashboard.KorzinkaFragment.getKorzinka;
+
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import java.util.ArrayList;
 
 import kz.worldskills.a107.R;
 
@@ -33,14 +38,24 @@ public class DetailActivity extends AppCompatActivity {
         int imageView =  intent.getIntExtra("imageView", 0);
         int baga =  intent.getIntExtra("baga", 0);
 
+        Item item = new Item(imageView, title , description , baga, 1);
+
         suretId.setImageResource(imageView);
         titleTv.setText(title);
         descTv.setText(description);
         bagaTv.setText(""+baga);
 
+        ArrayList<Item> itemArrayList = getKorzinka();
+
+        for (Item item1: itemArrayList) {
+            if(item1.title.equals(item.title)){
+                btnSubmit.setText("В корзине");
+            }
+        }
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                addToKorzinka(item);
                 finish();
             }
         });
